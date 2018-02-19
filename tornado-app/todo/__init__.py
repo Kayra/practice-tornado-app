@@ -3,6 +3,7 @@ from tornado.httpserver import HTTPServer
 from tornado.web import Application
 from tornado.ioloop import IOLoop
 
+from todo.views import HelloWorld
 
 define('port', default=8888, help='This is the port to listen on.')
 
@@ -12,10 +13,12 @@ def main():
     Construct and serve the tornado application.
     """
 
-    app = Application()
+    app = Application([
+        ('/', HelloWorld)
+    ])
+
     http_server = HTTPServer(app)
     http_server.listen(options.port)
-
     print(f"Listening on http:127.0.0.1:{options.port}")
 
     IOLoop.current().start()
