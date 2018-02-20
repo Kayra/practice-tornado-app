@@ -19,6 +19,6 @@ def main():
 
     http_server = HTTPServer(app)
     http_server.listen(options.port)
-    print(f"Listening on http:127.0.0.1:{options.port}")
+    print(f"Listening on http://127.0.0.1:{options.port}/")
 
     IOLoop.current().start()
