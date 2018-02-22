@@ -17,7 +17,8 @@ setup(
     install_requires=requires,
     entry_points={
         'console_scripts': [
-            'serve_app = todo:main'
+            'serve_app = todo:main',
+            'init_db = todo.scripts.initialise_db:main',
         ]
     }
 )
