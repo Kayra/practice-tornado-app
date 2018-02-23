@@ -18,7 +18,7 @@ setup(
     entry_points={
         'console_scripts': [
             'serve_app = todo:main',
-            'init_db = todo.scripts.initialise_db:main',
+            'init_db = scripts.initialise_db:main',
         ]
     }
 )

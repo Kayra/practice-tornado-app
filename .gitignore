@@ -5,3 +5,4 @@ build/
 dist/
 tornado_app.egg-info
 __pycache__/
+encodings.xml

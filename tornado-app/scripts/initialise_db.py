@@ -7,7 +7,7 @@ from todo.models import Base
 
 def main():
 
-    settings = {'sqlalchemy.url': 'postgres://localhost:5432/flask_todo'}
+    settings = {'sqlalchemy.url': 'postgres://localhost:5432/tornado_todo'}
     engine = engine_from_config(settings, prefix='sqlalchemy.')
 
     if bool(os.environ.get('DEBUG', '')):
