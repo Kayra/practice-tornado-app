@@ -4,13 +4,25 @@ This is the code written while following [Nicholas Hunt-Walker's](https://openso
 
 # Set-up
 
-## Building and running the local development server
+The application must be built locally before other commands will work.
+
+## Build the application
+
+```bash
+python setup.py develop
+```
+
+## Set up the database
+
+```bash
+createuser tornado_todo
+createdb tornado_todo
+init_db
+```
+
+## Run the local development server
 
 ```python
-# Build the application locally
-python setup.py develop
-
-# Run the local development server
 serve_app
 ```
 
