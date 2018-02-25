@@ -12,7 +12,7 @@ The application must be built locally before other commands will work.
 python setup.py develop
 ```
 
-## Set up the database
+## Set up the database (requires [postgres](http://www.postgresqltutorial.com/install-postgresql/))
 
 ```bash
 createuser tornado_todo

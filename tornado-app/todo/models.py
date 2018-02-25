@@ -27,12 +27,12 @@ class Task(Base):
 
 
 class User(Base):
-
-    __tablename__ = 'user'
-
     """
     The User object that owns tasks.
     """
+
+    __tablename__ = 'user'
+    
     id = Column(Integer, primary_key=True)
     username = Column(Unicode, nullable=False)
     email = Column(Unicode, nullable=False)
@@ -40,11 +40,3 @@ class User(Base):
     date_joined = Column(DateTime, nullable=False, default=datetime.now())
     token = Column(Unicode, nullable=False, default=secrets.token_urlsafe(64))
     tasks = relationship("task", back_populates="user")
-
-    # def __init__(self, *args, **kwargs):
-    #     """
-    #     On construction, set date of creation.
-    #     """
-    #     super().__init__(*args, **kwargs)
-    #     self.date_joined = datetime.now()
-    #     self.token = secrets.token_urlsafe(64)
