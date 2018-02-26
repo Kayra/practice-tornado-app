@@ -1,3 +1,6 @@
+import os
+
+from tornado_sqlalchemy import make_session_factory
 from tornado.options import define, options
 from tornado.httpserver import HTTPServer
 from tornado.web import Application
@@ -5,7 +8,9 @@ from tornado.ioloop import IOLoop
 
 from todo.views import HelloWorld
 
+
 define('port', default=8888, help='This is the port to listen on.')
+factory = make_session_factory(os.environ.get('DATABASE_URL', 'postgres://localhost:5432/tornado_todo'))
 
 
 def main():
@@ -15,7 +20,9 @@ def main():
 
     app = Application([
         ('/', HelloWorld)
-    ])
+    ],
+        session_factory=factory
+    )
 
     http_server = HTTPServer(app)
     http_server.listen(options.port)

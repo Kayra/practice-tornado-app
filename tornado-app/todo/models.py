@@ -32,7 +32,7 @@ class User(Base):
     """
 
     __tablename__ = 'user'
-    
+
     id = Column(Integer, primary_key=True)
     username = Column(Unicode, nullable=False)
     email = Column(Unicode, nullable=False)
