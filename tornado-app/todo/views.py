@@ -3,13 +3,26 @@ import json
 from tornado.web import RequestHandler
 
 
-class HelloWorld(RequestHandler):
+class BaseView(RequestHandler):
     """
-    A request handler that responds with 'Hello world'
+    Base view for this application
     """
 
-    def get(self):
-        self.write("Hello world")
+    def set_default_headers(self):
+        """
+        Set the default response header to be JSON
+        """
+        self.set_header("Content-Type",
+                        "application/json; charset=\"utf-8\"")
+
+    def send_response(self, data, status=200):
+        """
+        Construct and send a JSON response with appropriate status code.
+        """
+
+        self.set_status(status)
+        self.write(json.dumps(data))
+
 
 
 class ListRoutesView(RequestHandler):
@@ -47,3 +60,12 @@ class ListRoutesView(RequestHandler):
         }
 
         self.write(json.dumps(routes))
+
+
+class HelloWorld(RequestHandler):
+    """
+    A request handler that responds with 'Hello world'
+    """
+
+    def get(self):
+        self.write("Hello world")
