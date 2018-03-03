@@ -1,12 +1,22 @@
 import json
 
+from tornado_sqlalchemy import SessionMixin
 from tornado.web import RequestHandler
 
 
-class BaseView(RequestHandler):
+class BaseView(RequestHandler, SessionMixin):
     """
     Base view for this application
     """
+
+    def prepare(self):
+        """
+        Convert byte string to unicode for use in the view
+        """
+        self.data = {
+            key: [value.decode('utf-8') for value in value_list]
+            for key, value_list in self.request.arguments.items()
+        }
 
     def set_default_headers(self):
         """
