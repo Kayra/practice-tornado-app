@@ -1,7 +1,10 @@
 import json
 
-from tornado_sqlalchemy import SessionMixin
+from tornado_sqlalchemy import SessionMixin, as_future
 from tornado.web import RequestHandler
+from tornado.gen import coroutine
+
+from todo.models import User
 
 
 class BaseView(RequestHandler, SessionMixin):
@@ -34,10 +37,31 @@ class BaseView(RequestHandler, SessionMixin):
         self.write(json.dumps(data))
 
 
+class TaskListView(BaseView):
+    """
+    View for reading and adding new tasks
+    """
+
+    SUPPORTED_METHODS = ["GET", "POST"]
+
+    @coroutine
+    def get(self, username):
+        """
+        Get all tasks for an existing user.
+        """
+        with self.make_session() as session:
+            user = yield as_future(session.query(User).filter(User.username == username).first)
+            if user:
+                tasks = [task.to_dict() for task in user.tasks]
+                self.send_response({
+                    'username': user.username,
+                    'tasks': tasks
+                })
+
 
 class ListRoutesView(RequestHandler):
     """
-    Only allow GET requests.
+    View for listing available routes
     """
 
     SUPPORTED_METHODS = ["GET"]
