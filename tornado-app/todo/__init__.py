@@ -6,7 +6,7 @@ from tornado.httpserver import HTTPServer
 from tornado.web import Application
 from tornado.ioloop import IOLoop
 
-from todo.views import HelloWorld, ListRoutesView
+from todo.views import HelloWorld, ListRoutesView, TaskListView
 
 
 define('port', default=8888, help='This is the port to listen on.')
@@ -20,7 +20,8 @@ def main():
 
     app = Application([
         ('/', ListRoutesView),
-        ('/hi', HelloWorld)
+        ('/hi', HelloWorld),
+        ('/tasks', TaskListView)
     ],
         session_factory=factory
     )
