@@ -1,10 +1,11 @@
+from datetime import datetime
 import json
 
 from tornado_sqlalchemy import SessionMixin, as_future
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 
-from todo.models import User
+from todo.models import User, Task
 
 
 class BaseView(RequestHandler, SessionMixin):
@@ -47,8 +48,9 @@ class TaskListView(BaseView):
     @coroutine
     def get(self, username):
         """
-        Get all tasks for an existing user.
+        Get all tasks for an existing user
         """
+
         with self.make_session() as session:
             user = yield as_future(session.query(User).filter(User.username == username).first)
             if user:
@@ -57,6 +59,32 @@ class TaskListView(BaseView):
                     'username': user.username,
                     'tasks': tasks
                 })
+
+    @coroutine
+    def post(self, username):
+        """
+        Creates a new task
+        """
+
+        with self.make_session() as session:
+
+            user = yield as_future(session.query(User).filter(User.username).first)
+            if user:
+
+                due_date = self.data['due_date'][0]
+
+                task = Task(
+                    name=self.data['name'][0],
+                    note=self.data['note'][0],
+                    creation_date=datetime.now(),
+                    due_date=datetime.strptime(due_date, '%d/%m/%Y %H:%M:%S') if due_date else None,
+                    completed=self.data['completed'][0],
+                    user_id=user.id,
+                    user=user
+                )
+
+                session.add(task)
+                self.send_response({'message': 'posted'}, status=201)
 
 
 class ListRoutesView(RequestHandler):
