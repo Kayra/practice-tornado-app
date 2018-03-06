@@ -27,3 +27,37 @@ serve_app
 ```
 
 The application can now be accessed at [http://127.0.0.1:8888/](http://127.0.0.1:8888)
+
+# Usage
+
+## Add example user to database
+
+```sql
+INSERT INTO public.user (username, email, password, date_joined, token) 
+VALUES ('kayra', 'kayra@test.com', 'badpass', NOW(), 'test_token');
+```
+
+## Make GET request
+
+GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) should respond with:
+
+```javascript
+{
+	"username": "kayra",
+	"tasks": []
+}
+```
+
+## Make POST request
+
+POST request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) with body:
+
+```javascript
+
+```
+
+Should respond with:
+
+```javascript
+
+```

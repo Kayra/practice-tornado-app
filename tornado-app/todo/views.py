@@ -68,23 +68,28 @@ class TaskListView(BaseView):
 
         with self.make_session() as session:
 
-            user = yield as_future(session.query(User).filter(User.username).first)
+            user = yield as_future(session.query(User).filter(User.username==username).first)
             if user:
 
-                due_date = self.data['due_date'][0]
+                try:
+                    due_date = self.data['due_date'][0]
+                    completed = self.data['completed'][0]
+                except KeyError:
+                    due_date = None
+                    completed = None
 
                 task = Task(
                     name=self.data['name'][0],
                     note=self.data['note'][0],
                     creation_date=datetime.now(),
                     due_date=datetime.strptime(due_date, '%d/%m/%Y %H:%M:%S') if due_date else None,
-                    completed=self.data['completed'][0],
+                    completed=completed if completed else False,
                     user_id=user.id,
                     user=user
                 )
 
                 session.add(task)
-                self.send_response({'message': 'posted'}, status=201)
+                self.send_response({'message': 'Task created', 'Task': task.name}, status=201)
 
 
 class ListRoutesView(RequestHandler):

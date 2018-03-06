@@ -21,7 +21,7 @@ def main():
     app = Application([
         ('/', ListRoutesView),
         ('/hi', HelloWorld),
-        ('/tasks', TaskListView)
+        (r'/tasks/([^/]+)?', TaskListView)
     ],
         session_factory=factory
     )

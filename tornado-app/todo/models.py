@@ -23,7 +23,7 @@ class Task(Base):
     due_date = Column(DateTime)
     completed = Column(Boolean, default=False)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    user = relationship("user", back_populates="tasks")
+    user = relationship("User", back_populates="tasks")
 
 
 class User(Base):
@@ -39,4 +39,4 @@ class User(Base):
     password = Column(Unicode, nullable=False)
     date_joined = Column(DateTime, nullable=False, default=datetime.now())
     token = Column(Unicode, nullable=False, default=secrets.token_urlsafe(64))
-    tasks = relationship("task", back_populates="user")
+    tasks = relationship("Task", back_populates="user")
