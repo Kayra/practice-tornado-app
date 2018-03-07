@@ -50,14 +50,21 @@ GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/k
 
 ## Make POST request
 
-POST request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) with body:
+POST request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) with `Task` name and `Task` note:
 
-```javascript
-
+```bash
+curl --request POST \
+  --url http://127.0.0.1:8888/tasks/kayra \
+  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' \
+  --form 'name=Finish tutorial' \
+  --form 'note=Tutorial available at https://opensource.com/article/18/6/tornado-framework'
 ```
 
 Should respond with:
 
 ```javascript
-
+{
+	"message": "Task created",
+	"Task": "Finish tutorial"
+}
 ```
