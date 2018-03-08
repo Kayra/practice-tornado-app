@@ -25,6 +25,15 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship("User", back_populates="tasks")
 
+    def columns_to_dict(self):
+        dict_ = {}
+        for key in self.__mapper__.c.keys():
+            if isinstance(getattr(self, key), datetime):
+                dict_[key] = getattr(self, key).isoformat()
+            else:
+                dict_[key] = getattr(self, key)
+        return dict_
+
 
 class User(Base):
     """

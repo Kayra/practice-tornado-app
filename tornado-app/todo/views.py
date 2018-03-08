@@ -54,7 +54,7 @@ class TaskListView(BaseView):
         with self.make_session() as session:
             user = yield as_future(session.query(User).filter(User.username == username).first)
             if user:
-                tasks = [task.to_dict() for task in user.tasks]
+                tasks = [task.columns_to_dict() for task in user.tasks]
                 self.send_response({
                     'username': user.username,
                     'tasks': tasks
