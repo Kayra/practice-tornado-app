@@ -2,17 +2,17 @@
 
 This is the code written while following [Nicholas Hunt-Walker's](https://opensource.com/users/nhuntwalker) [Tornado Framework Tutorial](https://opensource.com/article/18/6/tornado-framework).
 
-# Set-up
+## Set-up
 
 The application must be built locally before other commands will work.
 
-## Build the application
+### Build the application
 
 ```bash
 python setup.py develop
 ```
 
-## Set up the database (requires [postgres](http://www.postgresqltutorial.com/install-postgresql/))
+### Set up the database (requires [postgres](http://www.postgresqltutorial.com/install-postgresql/))
 
 ```bash
 createuser tornado_todo
@@ -20,7 +20,7 @@ createdb tornado_todo
 init_db
 ```
 
-## Run the local development server
+### Run the local development server
 
 ```python
 serve_app
@@ -28,16 +28,16 @@ serve_app
 
 The application can now be accessed at [http://127.0.0.1:8888/](http://127.0.0.1:8888)
 
-# Usage
+## Usage
 
-## Add example user to database
+### Add example user to database
 
 ```sql
 INSERT INTO public.user (username, email, password, date_joined, token) 
 VALUES ('kayra', 'kayra@test.com', 'badpass', NOW(), 'test_token');
 ```
 
-## Make GET request
+### Make GET request
 
 GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) should respond with:
 
@@ -48,7 +48,7 @@ GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/k
 }
 ```
 
-## Make POST request
+### Make POST request
 
 POST request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) with `Task` name and `Task` note:
 
