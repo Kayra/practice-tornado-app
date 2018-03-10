@@ -39,7 +39,14 @@ VALUES ('kayra', 'kayra@test.com', 'badpass', NOW(), 'test_token');
 
 ### Make GET request
 
-GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra) should respond with:
+GET request to [http://127.0.0.1:8888/tasks/kayra](http://127.0.0.1:8888/tasks/kayra):
+
+```bash
+curl --request GET \
+  --url http://127.0.0.1:8888/tasks/kayra
+```
+
+Should respond with:
 
 ```javascript
 {
